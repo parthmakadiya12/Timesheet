@@ -1,0 +1,51 @@
+<div class="login-wrapper">
+  <form class="login" (ngSubmit)="signup(model)">
+    <label class="title">
+      <h3>Sign Up-Attendance Management</h3>
+      <h5 class="hint">Use your Email ID to signup</h5>
+    </label>
+    <div class="login-group no-mar-pad">
+      <input class="margin-20 form-control" type="text" id="name" placeholder="Name" [(ngModel)]="model.name" name="name" required>
+      <input class="margin-20 form-control" type="text" id="surname" placeholder="Surname" [(ngModel)]="model.surname" name="surname"
+        required>
+      <input class="margin-20 form-control" type="email" id="email" placeholder="Email" [(ngModel)]="model.email" name="email"
+        required>
+      <input class="margin-20 form-control" type="tel" id="tel" placeholder="Mobile" [(ngModel)]="model.mobile" name="mobile" required>
+      <input class="margin-20 form-control" type="password" id="login_password" [(ngModel)]="model.password" name="password" placeholder="Password"
+        required>
+      <div class="form-group">
+        <label>Gender</label>
+        <div class="radio-inline">
+          <input class="form-control" type="radio" name="gridRadios1" id="checkrads_11" value="Male" [(ngModel)]="model.gender" name="gender"
+            checked>
+          <label for="checkrads_12">Male</label>
+        </div>
+        <div class="radio-inline">
+          <input class="form-control" type="radio" name="gridRadios1" id="checkrads_12" value="Female" [(ngModel)]="model.gender" name="genderf">
+          <label for="checkrads_11">Female</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Date of Birth</label>
+        <input class="form-control" type="date" id="date" placeholder="Date" [(ngModel)]="model.dob" name="dob" required>
+      </div>
+
+      <div class="error active" *ngIf="edited">
+        Invalid user name or password
+      </div>
+      <button type="submit" class="btn btn-primary">SignUp</button>
+      <a (click)="signin()" class="signup">Sign in for a Company ID</a>
+    </div>
+  </form>
+</div>
+<clr-modal [(clrModalOpen)]="ShowModel" [clrModalClosable]="false">
+    <h3 class="modal-title">Email Verification - Check Mail</h3>
+    <div class="modal-body">
+      <label class="required">Enter OTP</label>
+      <input type="text" id="requiredInput" [(ngModel)]="otp">
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline"(click)="verify(otp)">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="verify(otp)">Ok</button>
+    </div>
+  </clr-modal>

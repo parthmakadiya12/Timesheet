@@ -1,0 +1,14 @@
+.margin-20{
+    margin-top: 0.25rem;
+    margin-right: 0px;
+    margin-bottom: 0.75rem;
+    margin-left: 0px;
+}
+.margin-cut{
+    margin-bottom: 0px !important;
+    margin-top: 0px !important;
+}
+.no-mar-pad{
+    padding:0 !important; 
+    margin:0 !important;
+}

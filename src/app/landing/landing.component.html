@@ -1,0 +1,49 @@
+<div class="login-wrapper">
+    <form class="login">
+        <label class="title">
+            <h3 class="welcome">Welcome to</h3>
+            Attendance Management
+
+            <h5 class="hint">Use your Company ID to sign in or create one now</h5>
+        </label>
+
+        <div class="login-group">
+            <div class="alert alert-app-level alert-danger" style="margin-bottom:24px"  *ngIf="ErrorX">
+                <div class="alert-items">
+                    <div class="alert-item static">
+                        <div class="alert-icon-wrapper">
+                            <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+                        </div>
+                        <div class="alert-text">
+                            Login First
+                        </div>
+                    </div>
+                </div>
+                <button type="button" (click)="ErrorX=false" class="close" aria-label="Close">
+                    <clr-icon aria-hidden="true" shape="close"></clr-icon>
+                </button>
+            </div>
+
+            <div class="auth-source select">
+                <select id="login-auth-source-1" [(ngModel)]="userType" [ngModelOptions]="{standalone: true}">
+                    <option selected>Local Users</option>
+                    <option>Administrator</option>
+                </select>
+            </div>
+            <input class="username" type="email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" id="login_username" placeholder="Username" [(ngModel)]="username" [ngModelOptions]="{standalone: true}">
+            <input class="password" type="password" id="login_password" placeholder="Password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
+            
+            <div class="checkbox">
+                <input type="checkbox" id="rememberme" [(ngModel)]="remember" [ngModelOptions]="{standalone: true}">
+                <label for="rememberme">
+                    Remember me
+                </label>
+            </div>
+            <div class="error active" *ngIf="edited">
+                Invalid user name or password
+            </div>
+            <button (click)="signin(userType,username,password,remember)" type="submit" class="btn btn-primary">Login</button>
+            <a (click)="signup()" class="signup">Sign up for a Company ID</a>
+        </div>
+    </form>
+</div>

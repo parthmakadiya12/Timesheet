@@ -1,0 +1,258 @@
+<div class="main-container">
+
+  <!--<div class="alert alert-app-level">  </div>-->
+  <header class="header header-6">
+    <div class="branding">
+      <a href="..." class="nav-link">
+        <clr-icon shape="vm-bug"></clr-icon>
+        <span class="title">AT Attendance Management</span>
+      </a>
+    </div>
+    <div class="header-nav">
+      <a href="..." class="active nav-link">
+        <span class="nav-text">Dashboard</span>
+      </a>
+      <a routerLink="/LeaveReqComponent" class="nav-link">
+        <span class="nav-text">Delete it</span>
+      </a>
+      <a (click)="lgOpen=true;" class="nav-link">
+        <span class="nav-text">Leave Application</span>
+      </a>
+    </div>
+    <div class="header-actions">
+      <clr-dropdown>
+        <button class="nav-text" clrDropdownTrigger>
+          {{username}}
+          <clr-icon shape="caret down"></clr-icon>
+        </button>
+        <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+          <a href="..." clrDropdownItem>Preferences</a>
+          <a href="..." clrDropdownItem>Log out</a>
+        </clr-dropdown-menu>
+      </clr-dropdown>
+    </div>
+
+
+
+  </header>
+  <!--<nav class="subnav">
+  </nav>-->
+
+  <div class="content-container">
+    <div class="content-area">
+      <!--
+      <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+        <h2>Submit Your Attendance </h2>
+        <a class="card clickable">
+          <div class="card-block">
+
+            <div class="row">
+              <div>
+                <label class="required">Date</label>
+                <label for="validInput1" aria-haspopup="true" class="tooltip tooltip-btop-right tooltip-validation invalid tooltip-sm">
+                  <input type="date" id="validInput1" [(ngModel)]="todayDate">
+                  <span class="tooltip-content">Date Here</span>
+                </label>
+              </div>
+              <div>
+                <label class="required">Starting Time</label>
+                <label for="validInput2" aria-haspopup="true" role="tooltip" class="tooltip tooltip-top-right tooltip-validation invalid tooltip-sm">
+                  <input type="time" id="validInput2" [(ngModel)]="startTime">
+                  <span class="tooltip-content">HH:MM AM/PM</span>
+                </label>
+              </div>
+              <div>
+                <label class="required">End Time Time</label>
+                <label for="validInput3" aria-haspopup="true" role="tooltip" class="tooltip tooltip-top-right tooltip-validation invalid tooltip-sm">
+                  <input type="time" id="validInput3" [(ngModel)]="endTime">
+                  <span class="tooltip-content">HH:MM AM/PM</span>
+                </label>
+              </div>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <div>
+                <button [clrLoading]="submitLoading" (click)="submitDemo(todayDate,startTime,endTime)" class="btn btn-sm">Submit</button>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>-->
+
+
+      <div class="col-md-10">
+        <!--start of wizard-->
+
+
+        <button class="btn btn-outline" (click)="jumpToThree()">Open at Step XXX</button>
+        <clr-wizard #wizardlg [(clrWizardOpen)]="lgOpen" clrWizardSize="lg">
+          <clr-wizard-title>Leave Application</clr-wizard-title>
+
+          <clr-wizard-button [type]="'cancel'">Finish</clr-wizard-button>
+          <clr-wizard-button [type]="'previous'">Back</clr-wizard-button>
+          <clr-wizard-button [type]="'next'">My Applicatins</clr-wizard-button>
+          <clr-wizard-button [type]="'previous'">Apply Leave</clr-wizard-button>
+          <clr-wizard-page>
+              <ng-template clrPageTitle #XXX>XXX</ng-template>
+              <form>
+                <div class="messages"></div>
+                <div class="controls">
+                  <!--Data Grid starts here-->
+                  <clr-datagrid [(clrDgSelected)]="clientNoTrackBySelected">
+                    <!--<clr-dg-column>Email</clr-dg-column>-->
+                    <clr-dg-column>Start Date</clr-dg-column>
+                    <clr-dg-column>End Date</clr-dg-column>
+                    <clr-dg-column>Status</clr-dg-column>                 
+                     
+                    <clr-dg-row *clrDgItems="let application of applications" (click)="editApplication(applicaion)">
+                      <!--<clr-dg-cell>{{application.email}}</clr-dg-cell>-->
+                      <clr-dg-cell>{{application.startDate}}</clr-dg-cell>
+                      <clr-dg-cell>{{application.endDate}}</clr-dg-cell>
+                      <clr-dg-cell>{{application.status}}</clr-dg-cell>
+                    </clr-dg-row>
+                    <clr-dg-footer>
+                      <div>
+                        <span class="label label-orange">
+                          Working Hours total
+                          <span class="badge badge-orange">{{count/60}}</span>
+                        </span>
+                      </div>
+                      {{users?.length}} {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}} users
+                      <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination>
+                    </clr-dg-footer>
+  
+                  </clr-datagrid>
+                  <!--Data Grid ends here-->
+                </div>
+              </form>
+            </clr-wizard-page>
+          <clr-wizard-page>
+            <ng-template clrPageTitle>Application</ng-template>
+            <form>
+              <div class="messages"></div>
+
+              <div class="controls">
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="form_name">Start Date</label>
+                      <input [(ngModel)]="startdate" type="date" name="name" class="form-control" required="required">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="form_email">End Date</label>
+                      <input [(ngModel)]="enddate" type="date" name="email" class="form-control" required="required">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="form_message">Reason for Leave</label>
+                      <textarea [(ngModel)]="reason" id="form_message" name="message" class="form-control" rows="4" required="required" data-error="Enter Leave Detail in short."></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="isError" class="col-md-12 alert alert-danger">
+                  <div class="alert-items">
+                    <div class="alert-item static">
+                      <div class="alert-icon-wrapper">
+                        <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+                      </div>
+                      <span class="alert-text">
+                        Possiblle Error:Already Applied For Leave
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <input type="submit" (click)="leaveReq(startdate,enddate,reason)" class="btn btn-success btn-send" value="Submit">
+                </div>
+              </div>
+            </form>
+          </clr-wizard-page>
+
+          
+
+        </clr-wizard>
+        <!--End of wizard-->
+        <h2>See Your Attendance </h2>
+        <h2 class="username">AA {{clientNoTrackBySelected}}</h2>
+        <!--Data Grid starts here-->
+        <clr-datagrid [(clrDgSelected)]="clientNoTrackBySelected">
+          <clr-dg-column>Email</clr-dg-column>
+          <clr-dg-column>Date</clr-dg-column>
+          <clr-dg-column>Start Time</clr-dg-column>
+          <clr-dg-column>End Time</clr-dg-column>
+          <clr-dg-column>Hours</clr-dg-column>
+          <clr-dg-row *clrDgItems="let user of users" (click)="dataShow(user)">
+            <clr-dg-cell>{{user.email}}</clr-dg-cell>
+            <clr-dg-cell>{{user.Date | date}}</clr-dg-cell>
+            <clr-dg-cell>{{user.StartTime}}</clr-dg-cell>
+            <clr-dg-cell>{{user.EndTime}}</clr-dg-cell>
+            <clr-dg-cell>{{user.hours}}</clr-dg-cell>
+            <ng-template [(clrIfExpanded)]="expanded[0]" ngProjectAs="clr-dg-row-detail">
+              <clr-dg-row-detail>
+                {{user.work}}
+              </clr-dg-row-detail>
+            </ng-template>
+
+          </clr-dg-row>
+          <clr-dg-footer>
+            <div>
+              <span class="label label-orange">
+                Working Hours total
+                <span class="badge badge-orange">{{count/60}}</span>
+              </span>
+            </div>
+            {{users?.length}} {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}} users
+            <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination>
+          </clr-dg-footer>
+
+        </clr-datagrid>
+        <!--Data Grid ends here-->
+      </div>
+    </div>
+    <nav class="sidenav">
+      <section class="sidenav-content">
+
+        <div class="container margin-30">
+          <!--start card-->
+          <h4>Submit your Attendance</h4>
+          <div>
+            <div class="form-group margin-30" style="margin-bottom:10px">
+              <label for="validInput1">Date</label>
+              <br/>
+              <input type="date" id="validInput1" style="width:190px" [(ngModel)]="todayDate">
+            </div>
+            <div class="form-group" style="margin-bottom:10px">
+              <label for="validInput2">Starting Time</label>
+              <br/>
+              <input type="time" id="validInput2" style="width:190px" [(ngModel)]="startTime">
+            </div>
+            <div class="form-group" style="margin-bottom:10px">
+              <label for="validInput3">End Time</label>
+              <br/>
+              <input type="time" id="validInput3" style="width:190px" [(ngModel)]="endTime">
+            </div>
+            <div class="form-group" style="margin-bottom:10px">
+              <label for="validInput4">Work Description</label>
+              <br/>
+              <input type="text" id="validInput4" style="width:190px" [(ngModel)]="workDesc">
+            </div>
+            <br/>
+            <div>
+              <button [clrLoading]="submitLoading" (click)="submitDemo(todayDate,startTime,endTime,workDesc)" style="width:190px" class="btn btn-outline">Submit</button>
+            </div>
+            <div>
+              <button (click)="updateData(todayDate,startTime,endTime,workDesc)" style="width:190px" class="btn btn-outline" [hidden]="hideUpdate">Update</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </nav>
+  </div>
+</div>
